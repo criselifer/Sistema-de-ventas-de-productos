@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Sistema de ventasde productos</string>
+    <string name="categoria">Categoria</string>
+    <string name="producto">Producto</string>
+    <string name="cliente">Cliente</string>
+    <string name="venta">Venta</string>
+    <string name="credencialNoValida">Credenciales no validas</string>
+    <string name="usuario">Usuario</string>
+    <string name="password">Password</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="nombreCategoria">Categoria</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="agregar">Agregar</string>
+    <string name="categoriaAgregadaCorrectamente">Categoria agregada correctamente</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="ruc">Ruc</string>
+</resources>
