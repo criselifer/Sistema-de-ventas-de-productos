@@ -1,9 +1,11 @@
 package com.example.sistemadeventasdeproductos.api.services;
 
 import com.example.sistemadeventasdeproductos.api.models.Categoria;
+import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import com.example.sistemadeventasdeproductos.api.models.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductoService {
     private static ProductoService instanciaUnica;
@@ -53,6 +55,37 @@ public class ProductoService {
                 return;
             }
         }
+    }
+
+    public List<Producto> productoByCodigo(String codigo) {
+        List<Producto> producto = new ArrayList<>();
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+                producto.add(productos.get(i));
+            }
+        }
+        return producto;
+    }
+
+    public List<Producto> productosByCategoria(Integer idCategoria) {
+        return productos.stream()
+                .filter(producto -> producto.getCategoria().getId() == idCategoria)
+                .collect(Collectors.toList());
+    }
+
+    public List<Producto> productoByCodigoYCategoria(String codigo, Integer idCategoria){
+
+        List<Producto> productos = this.productosByCategoria(idCategoria);
+        List<Producto> producto = new ArrayList<>();
+
+        for (int i=0; i<productos.size(); i++){
+            if (productos.get(i).getCodigo().equalsIgnoreCase(codigo)){
+                producto.add(productos.get(i));
+            }
+        }
+
+        return producto;
+
     }
 
 }

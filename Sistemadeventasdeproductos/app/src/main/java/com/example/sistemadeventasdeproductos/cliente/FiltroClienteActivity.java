@@ -6,15 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import com.example.sistemadeventasdeproductos.R;
-import com.example.sistemadeventasdeproductos.categoria.CategoriasActivity;
 
 public class FiltroClienteActivity extends AppCompatActivity {
-    String value;
     EditText nombre;
     EditText apellido;
-    EditText ruc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

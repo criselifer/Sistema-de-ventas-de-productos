@@ -56,7 +56,22 @@ public class ProductoActivity extends AppCompatActivity {
         if (filtro.equals("")) {
             listaProductos = productoService.obtenerProductos();
         } else {
-
+            String[] filtroSplit = filtro.split("/");
+            if (filtroSplit.length > 1) {
+                String tipoFiltro = filtroSplit[0];
+                String valorFiltro = filtroSplit[1];
+                switch (tipoFiltro) {
+                    case "codigo":
+                        listaProductos = productoService.productoByCodigo(valorFiltro);
+                        break;
+                    case "categoria":
+                        listaProductos = productoService.productosByCategoria(Integer.parseInt(valorFiltro));
+                        break;
+                    case "codigo-categoria":
+                        listaProductos = productoService.productoByCodigoYCategoria(filtroSplit[1], Integer.parseInt(filtroSplit[2]));
+                        break;
+                }
+            }
         }
 
         adapterProducto = new AdapterProducto(listaProductos);
