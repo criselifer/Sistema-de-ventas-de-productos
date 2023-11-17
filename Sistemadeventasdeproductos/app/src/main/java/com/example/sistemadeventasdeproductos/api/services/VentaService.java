@@ -1,6 +1,5 @@
 package com.example.sistemadeventasdeproductos.api.services;
 
-import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 import java.util.ArrayList;
 import java.util.List;

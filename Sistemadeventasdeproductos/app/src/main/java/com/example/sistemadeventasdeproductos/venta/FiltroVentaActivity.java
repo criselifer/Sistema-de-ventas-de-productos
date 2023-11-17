@@ -5,21 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sistemadeventasdeproductos.R;
-import com.example.sistemadeventasdeproductos.api.models.Categoria;
 import com.example.sistemadeventasdeproductos.api.models.Cliente;
-import com.example.sistemadeventasdeproductos.api.models.Venta;
-import com.example.sistemadeventasdeproductos.api.services.CategoriaService;
 import com.example.sistemadeventasdeproductos.api.services.ClienteService;
-import com.example.sistemadeventasdeproductos.api.services.VentaService;
-
 import java.util.List;
 
 public class FiltroVentaActivity extends AppCompatActivity {
     Spinner spinnerCliente;
     Cliente clienteSeleccionado;
+    CheckBox checkBoxCliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +46,8 @@ public class FiltroVentaActivity extends AppCompatActivity {
             }
         });
 
+        checkBoxCliente = findViewById(R.id.checkBoxCliente);
+
     }
 
     public void btnEventoFiltrarVenta(View v) {
@@ -56,7 +55,7 @@ public class FiltroVentaActivity extends AppCompatActivity {
         Intent principalIntent = new Intent(this, VentaActivity.class);
         Bundle bundle = new Bundle();
 
-        if (clienteSeleccionado == null) {
+        if (!checkBoxCliente.isChecked()) {
             bundle.putString("consulta", "");
         } else {
             bundle.putString("consulta", "/" + clienteSeleccionado.getId());

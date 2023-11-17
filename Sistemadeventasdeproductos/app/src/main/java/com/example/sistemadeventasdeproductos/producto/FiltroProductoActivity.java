@@ -5,23 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Categoria;
-import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import com.example.sistemadeventasdeproductos.api.services.CategoriaService;
-import com.example.sistemadeventasdeproductos.api.services.ClienteService;
-
 import java.util.List;
 
 public class FiltroProductoActivity extends AppCompatActivity {
     EditText codigo;
     Spinner spinnerCategoria;
     Categoria categoriaSeleccionada;
+    CheckBox checkBoxCategoria;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,6 +48,8 @@ public class FiltroProductoActivity extends AppCompatActivity {
             }
         });
 
+        checkBoxCategoria = findViewById(R.id.checkBoxCategoria);
+
     }
 
     public void btnEventoFiltrarProducto(View v) {
@@ -58,11 +57,11 @@ public class FiltroProductoActivity extends AppCompatActivity {
         Intent principalIntent = new Intent(this, ProductoActivity.class);
         Bundle bundle = new Bundle();
 
-        if(codigo.getText().toString().equalsIgnoreCase("") && categoriaSeleccionada == null) {
+        if(codigo.getText().toString().equalsIgnoreCase("") && !checkBoxCategoria.isChecked()) {
             bundle.putString("consulta", "");
-        } else if (!codigo.getText().toString().equalsIgnoreCase("") && categoriaSeleccionada == null) {
+        } else if (!codigo.getText().toString().equalsIgnoreCase("") && !checkBoxCategoria.isChecked()) {
             bundle.putString("consulta", "codigo/" + codigo.getText().toString());
-        } else if (codigo.getText().toString().equalsIgnoreCase("") && categoriaSeleccionada != null) {
+        } else if (codigo.getText().toString().equalsIgnoreCase("") && checkBoxCategoria.isChecked()) {
             bundle.putString("consulta", "categoria/" + categoriaSeleccionada.getId());
         } else {
             bundle.putString("consulta", "codigo-categoria/" + codigo.getText().toString() + "/" + categoriaSeleccionada.getId());

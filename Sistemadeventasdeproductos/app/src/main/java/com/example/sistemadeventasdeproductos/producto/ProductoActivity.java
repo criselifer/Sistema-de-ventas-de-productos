@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Producto;
 import com.example.sistemadeventasdeproductos.api.services.ProductoService;
-import com.example.sistemadeventasdeproductos.api.services.VentaService;
-import com.example.sistemadeventasdeproductos.venta.AdapterVenta;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
