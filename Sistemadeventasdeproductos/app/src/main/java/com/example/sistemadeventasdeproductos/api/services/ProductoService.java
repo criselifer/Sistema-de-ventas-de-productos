@@ -12,15 +12,22 @@ public class ProductoService {
     private ProductoService() {
 
         this.productos = new ArrayList<>();
+        CategoriaService categoriaService = CategoriaService.getInstance();
+        Categoria categoria;
         Producto producto;
 
         producto = new Producto();
         producto.setId(1);
         producto.setNombre("Gaseosa Coca Cola 500ml");
         producto.setCodigo("gaseosa1346coca500");
-        producto.setCategoria(1);
+
+        categoria = categoriaService.categoriaById(1);
+        producto.setCategoria(categoria);
+
         producto.setPrecioVenta(5000);
         this.productos.add(producto);
+
+        this.index = 2;
 
     }
     public static synchronized ProductoService getInstance() {

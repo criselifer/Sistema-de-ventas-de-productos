@@ -6,48 +6,48 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".venta.NewVentaActivity">
+    tools:context=".producto.NewProductoActivity">
+
+    <EditText
+        android:id="@+id/txtCodigo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/codigo"/>
+
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/producto"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cliente"
+        android:text="@string/categoria"
         android:layout_marginBottom="16dp"/>
 
     <Spinner
-        android:id="@+id/spinnerCliente"
+        android:id="@+id/spinnerCategoria"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:prompt="@string/cliente"
+        android:prompt="@string/categoria"
         android:layout_marginBottom="16dp"/>
 
     <EditText
-        android:id="@+id/txtNroFactura"
+        android:id="@+id/txtPrecio"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="@string/nroFactura"/>
-
-    <!--<EditText
-        android:id="@+id/txtFecha"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/fecha"/>-->
-
-    <EditText
-        android:id="@+id/txtTotal"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:editable="false"
-        android:hint="@string/total"
+        android:hint="@string/precio_unitario"
         android:layout_marginBottom="16dp"/>
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:onClick="agregarNuevaVenta"
+        android:onClick="agregarNuevoProducto"
         android:text="@string/agregar"/>
 
 </LinearLayout>

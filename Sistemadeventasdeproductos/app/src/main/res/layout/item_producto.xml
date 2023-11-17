@@ -19,7 +19,7 @@
             android:visibility="invisible"/>
 
         <TextView
-            android:id="@+id/txtCliente"
+            android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtId"
@@ -29,33 +29,33 @@
             android:ellipsize="end"/>
 
         <TextView
-            android:id="@+id/txtNroFactura"
+            android:id="@+id/txtCodigo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtCliente"
+            android:layout_below="@id/txtNombre"
             android:textSize="18sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
         <TextView
-            android:id="@+id/txtFecha"
+            android:id="@+id/txtCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtNroFactura"
+            android:layout_below="@id/txtCodigo"
             android:textSize="18sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
         <TextView
-            android:id="@+id/txtTotal"
+            android:id="@+id/txtPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtFecha"
+            android:layout_below="@id/txtCategoria"
             android:textSize="18sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
-        <!--Hay que tener en cuenta que al eliminar el producto tambien se deben eliminar los detalles
+        <!--Hay que tener en cuenta que al eliminar el producto tambien se deben eliminar de los detalles de las ventas
             De momento se queda sin que se puedan eliminar-->
         <!--<Button
             android:id="@+id/btnEliminar"

@@ -58,6 +58,16 @@ public class CategoriaService {
                 .collect(Collectors.toList());
     }
 
+    public Categoria categoriaById(Integer id) {
+        Categoria categoria = null;
+        for (int i = 0; i < listaCategorias.size(); i++){
+            if (listaCategorias.get(i).getId() == id) {
+                categoria = listaCategorias.get(i);
+            }
+        }
+        return categoria;
+    }
+
     public void eliminarCategoriaById(int id) {
         for (int i = 0; i < listaCategorias.size(); i++) {
             Categoria categoria = listaCategorias.get(i);

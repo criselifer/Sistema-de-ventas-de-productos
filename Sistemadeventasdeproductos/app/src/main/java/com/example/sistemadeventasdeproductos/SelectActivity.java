@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.example.sistemadeventasdeproductos.categoria.FiltroCategoriaActivity;
 import com.example.sistemadeventasdeproductos.cliente.FiltroClienteActivity;
+import com.example.sistemadeventasdeproductos.producto.FiltroProductoActivity;
 import com.example.sistemadeventasdeproductos.venta.FiltroVentaActivity;
 
 public class SelectActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class SelectActivity extends AppCompatActivity {
     }
 
     public void btnEventoProducto(View v) {
-        Intent principalIntent=new Intent(this, FiltroCategoriaActivity.class);
+        Intent principalIntent=new Intent(this, FiltroProductoActivity.class);
         /*Bundle bundle=new Bundle();
         bundle.putString("user",getIntent().getExtras().getString("user"));
         principalIntent.putExtras(bundle);*/
