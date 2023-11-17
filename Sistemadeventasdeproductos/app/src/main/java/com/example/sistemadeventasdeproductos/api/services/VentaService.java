@@ -1,8 +1,10 @@
 package com.example.sistemadeventasdeproductos.api.services;
 
+import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VentaService {
     private static VentaService instanciaUnica;
@@ -35,6 +37,12 @@ public class VentaService {
                 return;
             }
         }
+    }
+
+    public List<Venta> ventasByCliente(Integer idCliente) {
+        return ventas.stream()
+                .filter(venta -> venta.getCliente().getId() == idCliente)
+                .collect(Collectors.toList());
     }
 
 }

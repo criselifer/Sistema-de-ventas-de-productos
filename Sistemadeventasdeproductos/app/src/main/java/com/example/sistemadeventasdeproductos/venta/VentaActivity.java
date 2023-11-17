@@ -54,7 +54,8 @@ public class VentaActivity extends AppCompatActivity {
         if (filtro.equals("")) {
             listaVentas = ventaService.obtenerVentas();
         } else {
-
+            String[] filtroSplit = filtro.split("/");
+            listaVentas = ventaService.ventasByCliente(Integer.parseInt(filtroSplit[1]));
         }
 
         adapterVenta = new AdapterVenta(listaVentas);

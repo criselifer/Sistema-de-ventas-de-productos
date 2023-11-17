@@ -8,6 +8,19 @@
     android:gravity="center"
     tools:context=".venta.FiltroVentaActivity">
 
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/cliente"
+      android:layout_marginBottom="16dp"/>
+
+  <Spinner
+      android:id="@+id/spinnerCliente"
+      android:layout_width="250dp"
+      android:layout_height="wrap_content"
+      android:prompt="@string/cliente"
+      android:layout_marginBottom="16dp"/>
+
   <Button
       android:layout_width="200dp"
       android:onClick="btnEventoFiltrarVenta"
