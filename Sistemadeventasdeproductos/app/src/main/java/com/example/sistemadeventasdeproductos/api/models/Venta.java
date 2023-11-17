@@ -5,6 +5,7 @@ import java.util.Date;
 public class Venta {
 
     private Integer id;
+    private Cliente cliente;
     private Integer nroFactura;
     private Date fecha;
     private Integer total;
@@ -44,4 +45,11 @@ public class Venta {
         this.total = total;
     }
 
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

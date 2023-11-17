@@ -15,4 +15,10 @@
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="ruc">Ruc</string>
+    <string name="email">Email</string>
+    <string name="clienteAgregadoCorrectamente">Cliente registrado correctamente</string>
+    <string name="nroFactura">Numero de factura</string>
+    <string name="fecha">Fecha</string>
+    <string name="total">Total</string>
+    <string name="ventaAgregadoCorrectamente">Venta registrada correctamente</string>
 </resources>

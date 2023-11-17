@@ -6,40 +6,47 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".cliente.NewClienteActivity">
+    tools:context=".venta.NewVentaActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cliente"
+        android:layout_marginBottom="16dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerCliente"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:prompt="@string/cliente"
+        android:layout_marginBottom="16dp"/>
 
     <EditText
-        android:id="@+id/txtNombreNuevo"
+        android:id="@+id/txtNroFactura"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="@string/nombre"/>
+        android:hint="@string/nroFactura"/>
 
-    <EditText
-        android:id="@+id/txtApellidoNuevo"
+    <!--<EditText
+        android:id="@+id/txtFecha"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="@string/apellido"/>
+        android:hint="@string/fecha"/>-->
 
     <EditText
-        android:id="@+id/txtRucNuevo"
+        android:id="@+id/txtTotal"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/ruc"/>
-
-    <EditText
-        android:id="@+id/txtEmailNuevo"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/email"/>
+        android:inputType="none"
+        android:editable="false"
+        android:hint="@string/total"/>
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:onClick="agregarNuevoCliente"
+        android:onClick="agregarNuevaVenta"
         android:text="@string/agregar"/>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,9 +18,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT-3"));
+
         setContentView(R.layout.activity_main);
         usuario=findViewById(R.id.textNombreUsuario);
         password=findViewById(R.id.textPassword);
+
     }
 
     public void btnEventoIngresar(View v) {
