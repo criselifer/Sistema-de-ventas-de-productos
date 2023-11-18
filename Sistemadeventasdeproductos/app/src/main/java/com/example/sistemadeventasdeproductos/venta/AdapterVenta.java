@@ -9,10 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 import java.util.List;
+//*****
+import android.graphics.Color;
+
 
 public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> {
     private List<Venta> dsVenta;
     private ItemClickListener mItemListener;
+
+    private Venta ventaSeleccionada;
+
+    // Método para establecer la venta seleccionada
+    public void setVentaSeleccionada(Venta venta) {
+        this.ventaSeleccionada = venta;
+        notifyDataSetChanged(); // Notifica al adaptador que los datos han cambiado para reflejar el cambio en la interfaz de usuario
+    }
 
     @NonNull
     @Override
@@ -32,6 +43,13 @@ public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> 
         viewHolder.tvFecha.setText(dsVenta.get(i).getFecha().toString());
         viewHolder.tvTotal.setText(dsVenta.get(i).getTotal().toString());
 
+        // Cambiar el color de fondo si la venta está seleccionada
+        if (dsVenta.get(i).equals(ventaSeleccionada)) {
+            viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
+        } else {
+            viewHolder.itemView.setBackgroundColor(Color.WHITE);
+        }
+
         viewHolder.itemView.setOnClickListener(view -> {
             mItemListener.onItemClick(dsVenta.get(i));
         });
@@ -41,6 +59,10 @@ public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> 
     @Override
     public int getItemCount() {
         return dsVenta.size();
+    }
+
+    public Venta getVentaSeleccionada() {
+        return ventaSeleccionada;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

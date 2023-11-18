@@ -16,11 +16,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class VentaActivity extends AppCompatActivity {
+// Importaciones para la generación de PDF
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
+import android.os.Environment;
+import java.io.File;
+import java.io.FileOutputStream;
+import android.util.Log;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import android.widget.Button;
+import android.widget.Toast;
+
+
+public class VentaActivity extends AppCompatActivity implements AdapterVenta.ItemClickListener{
 
     private RecyclerView rvVenta;
     private AdapterVenta adapterVenta;
     private FloatingActionButton fabNuevaVenta;
+
+    private Button btnGenerarPDF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +62,25 @@ public class VentaActivity extends AppCompatActivity {
             }
         });
 
+        btnGenerarPDF = findViewById(R.id.btnGenerarPDF);
+        btnGenerarPDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener la venta seleccionada (debes adaptar esto según tu lógica)
+                Venta ventaSeleccionada = adapterVenta.getVentaSeleccionada();
+                if (ventaSeleccionada != null) {
+                    generarFacturaPdf(ventaSeleccionada);
+                } else {
+                    Toast.makeText(VentaActivity.this, "Seleccione una venta para generar la factura", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onItemClick(Venta venta) {
+        adapterVenta.setVentaSeleccionada(venta);
     }
 
     public void cargarVentas(String filtro) {
@@ -80,4 +117,52 @@ public class VentaActivity extends AppCompatActivity {
 
     }
 
+    // Función para generar la factura en PDF
+    public void generarFacturaPdf(Venta venta) {
+        // Crear un nuevo documento PDF
+        PdfDocument document = new PdfDocument();
+
+        // Crear una página
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        // Dibujar contenido en la página
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+
+        // Título
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(20);
+        canvas.drawText("Factura", 100, 30, paint);
+
+        // Contenido
+        paint.setTextSize(14);
+        canvas.drawText("Fecha: " + obtenerFechaActual(), 20, 60, paint);
+        // Agregar más información de la factura según tus necesidades...
+
+        // Finalizar la página
+        document.finishPage(page);
+
+        // Guardar el documento en un archivo PDF
+        try {
+            String filePath = Environment.getExternalStorageDirectory().getPath() + "/Factura_" + venta.getId() + ".pdf";
+            File file = new File(filePath);
+            document.writeTo(new FileOutputStream(file));
+            document.close();
+
+            Log.d("GenerarFactura", "Factura generada y guardada en: " + filePath);
+
+            // Muestra un mensaje al usuario
+            Toast.makeText(this, "Factura generada y guardada en: " + filePath, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Muestra un mensaje de error al usuario
+            Toast.makeText(this, "Error al generar la factura", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String obtenerFechaActual() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        return dateFormat.format(new Date());
+    }
 }
