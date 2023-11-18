@@ -44,7 +44,7 @@
         android:id="@+id/spinnerProducto"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:prompt="@string/cliente"
+        android:prompt="@string/producto"
         android:layout_marginBottom="16dp"/>
 
 
@@ -53,8 +53,9 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Cantidad"
-        android:layout_marginBottom="16dp"/>
+        android:hint="@string/cantidad"
+        android:layout_marginBottom="16dp"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/txtTotal"

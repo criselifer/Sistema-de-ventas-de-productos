@@ -2,6 +2,7 @@ package com.example.sistemadeventasdeproductos.venta;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,10 +11,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.Debug;
+
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Cliente;
+import com.example.sistemadeventasdeproductos.api.models.Producto;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 import com.example.sistemadeventasdeproductos.api.services.ClienteService;
+import com.example.sistemadeventasdeproductos.api.services.ProductoService;
 import com.example.sistemadeventasdeproductos.api.services.VentaService;
 import java.util.Date;
 import java.util.List;
@@ -22,15 +27,20 @@ public class NewVentaActivity extends AppCompatActivity {
 
     private Cliente clienteSeleccionado;
     private Spinner spinnerCliente;
+    private Spinner spinnerProducto;
+    private Producto productoSeleccionado;
     private EditText nroFactura;
     //private EditText fecha;
     private TextView total;
+    private EditText cantidad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_venta);
+
+        cantidad = findViewById(R.id.txtCantidadProducto);
 
         ClienteService clienteService = ClienteService.getInstance();
         List<Cliente> listaClientes;
@@ -47,6 +57,28 @@ public class NewVentaActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 clienteSeleccionado = (Cliente) parentView.getItemAtPosition(position);
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Manejo cuando no se ha seleccionado nada
+            }
+        });
+
+        // Configuraciones para el spinnerProducto
+        ProductoService productoService = ProductoService.getInstance();
+        List<Producto> listaProductos;
+        ArrayAdapter<Producto> adaptadorProducto;
+
+        spinnerProducto = findViewById(R.id.spinnerProducto);
+        listaProductos = productoService.obtenerProductos();
+        adaptadorProducto = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaProductos);
+        adaptadorProducto.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProducto.setAdapter(adaptadorProducto);
+        spinnerProducto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                productoSeleccionado = (Producto) parentView.getItemAtPosition(position);
+            }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Manejo cuando no se ha seleccionado nada

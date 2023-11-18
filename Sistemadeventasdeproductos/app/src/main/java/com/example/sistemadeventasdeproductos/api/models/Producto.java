@@ -49,4 +49,9 @@ public class Producto {
     public void setPrecioVenta(Integer precioVenta) {
         this.precioVenta = precioVenta;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
