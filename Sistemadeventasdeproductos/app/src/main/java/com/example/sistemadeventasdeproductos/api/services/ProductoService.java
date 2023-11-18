@@ -28,7 +28,88 @@ public class ProductoService {
         producto.setPrecioVenta(5000);
         this.productos.add(producto);
 
-        this.index = 2;
+        producto = new Producto();
+        producto.setId(2);
+        producto.setNombre("Gaseosa Fanta 500ml");
+        producto.setCodigo("gaseosa1346fanta500");
+        categoria = categoriaService.categoriaById(1);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(5000);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(3);
+        producto.setNombre("Gaseosa Pepsi 500ml");
+        producto.setCodigo("gaseosa1346pepsi500");
+        categoria = categoriaService.categoriaById(1);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(4500);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(4);
+        producto.setNombre("Albondigas");
+        producto.setCodigo("albondigas1346carne");
+        categoria = categoriaService.categoriaById(2);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(16000);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(5);
+        producto.setNombre("Tallarín");
+        producto.setCodigo("tallarin1346carnepollo");
+        categoria = categoriaService.categoriaById(2);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(17000);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(6);
+        producto.setNombre("Milanesa");
+        producto.setCodigo("milanesa1346carnepollo");
+        categoria = categoriaService.categoriaById(2);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(19000);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(7);
+        producto.setNombre("Marinera");
+        producto.setCodigo("marinera1346carnepollo");
+        categoria = categoriaService.categoriaById(2);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(19000);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(8);
+        producto.setNombre("Empanada");
+        producto.setCodigo("empanada1346varios");
+        categoria = categoriaService.categoriaById(3);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(2500);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(9);
+        producto.setNombre("Sandwich");
+        producto.setCodigo("sandwich1346varios");
+        categoria = categoriaService.categoriaById(3);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(3500);
+        this.productos.add(producto);
+
+        producto = new Producto();
+        producto.setId(9);
+        producto.setNombre("Croqueta");
+        producto.setCodigo("croqueta1346pollocarne");
+        categoria = categoriaService.categoriaById(3);
+        producto.setCategoria(categoria);
+        producto.setPrecioVenta(4000);
+        this.productos.add(producto);
+
+        this.index = 11;
 
     }
     public static synchronized ProductoService getInstance() {
