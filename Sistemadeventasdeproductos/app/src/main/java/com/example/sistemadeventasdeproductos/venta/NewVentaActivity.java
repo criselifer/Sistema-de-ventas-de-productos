@@ -105,6 +105,8 @@ public class NewVentaActivity extends AppCompatActivity {
             e.printStackTrace();
             venta.setTotal(0);
         }
+        int cantidadD = Integer.parseInt(cantidad.getText().toString());
+        venta.setTotal(productoSeleccionado.getPrecioVenta()*cantidadD);
         ventaService.agregarVenta(venta);
 
         Toast.makeText(
