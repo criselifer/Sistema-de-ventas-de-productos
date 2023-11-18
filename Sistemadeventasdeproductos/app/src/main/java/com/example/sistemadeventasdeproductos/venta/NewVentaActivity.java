@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sistemadeventasdeproductos.R;
@@ -23,7 +24,7 @@ public class NewVentaActivity extends AppCompatActivity {
     private Spinner spinnerCliente;
     private EditText nroFactura;
     //private EditText fecha;
-    private EditText total;
+    private TextView total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

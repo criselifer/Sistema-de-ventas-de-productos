@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context=".venta.NewVentaActivity">
 
+    <EditText
+        android:id="@+id/txtNroFactura"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/nroFactura"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,12 +28,6 @@
         android:prompt="@string/cliente"
         android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/txtNroFactura"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/nroFactura"/>
 
     <!--<EditText
         android:id="@+id/txtFecha"
@@ -34,13 +35,32 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:hint="@string/fecha"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/producto"
+        android:layout_marginBottom="16dp"/>
+    <Spinner
+        android:id="@+id/spinnerProducto"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:prompt="@string/cliente"
+        android:layout_marginBottom="16dp"/>
+
 
     <EditText
+        android:id="@+id/txtCantidadProducto"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Cantidad"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
         android:id="@+id/txtTotal"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="none"
-        android:editable="false"
         android:hint="@string/total"
         android:layout_marginBottom="16dp"/>
 
