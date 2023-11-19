@@ -10,6 +10,8 @@ public class VentaService {
     private static VentaService instanciaUnica;
     private List<Venta> ventas;
     private Integer index;
+    private int indexDetalles;
+
     private VentaService() {
         this.ventas = new ArrayList<>();
         this.index = 1;
@@ -29,8 +31,8 @@ public class VentaService {
     public void agregarDetalleAVenta(int idVenta, DetalleVenta detalleVenta) {
         Venta venta = obtenerVentaById(idVenta);
         if (venta != null) {
-            //detalleVenta.setId(this.indexDetalles++);
-            //venta.agregarDetalle(detalleVenta);
+            detalleVenta.setId(this.indexDetalles++);
+            venta.agregarDetalle(detalleVenta);
         }
     }
 

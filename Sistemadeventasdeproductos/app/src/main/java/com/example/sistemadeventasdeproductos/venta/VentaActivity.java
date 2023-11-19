@@ -215,11 +215,11 @@ public class VentaActivity extends AppCompatActivity {
             enviarCorreoConAdjunto(listaVentas);
 
             // Muestra un mensaje al usuario
-            Toast.makeText(this, "Registro de ventas generado y guardado en: " + filePath, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registro de ventas generado y guardado en: " + filePath, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             // Muestra un mensaje de error al usuario
-            Toast.makeText(this, "Error al generar el registro de ventas: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error al generar el registro de ventas: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

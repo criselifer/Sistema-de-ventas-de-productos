@@ -56,4 +56,8 @@ public class Venta {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public void agregarDetalle(DetalleVenta detalleVenta) {
+        this.detalles.add(detalleVenta);
+    }
 }

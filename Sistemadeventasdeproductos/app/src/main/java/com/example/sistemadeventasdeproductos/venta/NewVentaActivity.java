@@ -15,9 +15,11 @@ import androidx.constraintlayout.motion.widget.Debug;
 
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Cliente;
+import com.example.sistemadeventasdeproductos.api.models.DetalleVenta;
 import com.example.sistemadeventasdeproductos.api.models.Producto;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 import com.example.sistemadeventasdeproductos.api.services.ClienteService;
+import com.example.sistemadeventasdeproductos.api.services.DetalleVentaService;
 import com.example.sistemadeventasdeproductos.api.services.ProductoService;
 import com.example.sistemadeventasdeproductos.api.services.VentaService;
 import java.util.Date;
@@ -106,8 +108,19 @@ public class NewVentaActivity extends AppCompatActivity {
             venta.setTotal(0);
         }
         int cantidadD = Integer.parseInt(cantidad.getText().toString());
+
+        DetalleVenta detalleVenta = new DetalleVenta();
+        DetalleVentaService detalleVentaService = DetalleVentaService.getInstance();
+
+        detalleVenta.setCantidad(cantidadD);
+        detalleVenta.setIdProducto(productoSeleccionado.getId());
+        detalleVenta.setSubtotal(productoSeleccionado.getPrecioVenta()*cantidadD);
+        detalleVentaService.agregarReservaDetalleVenta(detalleVenta);
+
         venta.setTotal(productoSeleccionado.getPrecioVenta()*cantidadD);
+        venta.agregarDetalle(detalleVenta);
         ventaService.agregarVenta(venta);
+
 
         Toast.makeText(
                 NewVentaActivity.this,R.string.ventaAgregadoCorrectamente,Toast.LENGTH_LONG).show();
