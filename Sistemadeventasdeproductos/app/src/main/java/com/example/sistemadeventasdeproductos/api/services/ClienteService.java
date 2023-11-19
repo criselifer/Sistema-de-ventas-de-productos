@@ -71,7 +71,15 @@ public class ClienteService {
         cliente.setRuc("111234567");
         this.clientes.add(cliente);
 
-        this.index = 8;
+        cliente = new Cliente();
+        cliente.setId(8);
+        cliente.setNombre("Nathaly");
+        cliente.setApellido("Prieto");
+        cliente.setEmail("nathalyprieto801@gmail.com");
+        cliente.setRuc("4972478125");
+        this.clientes.add(cliente);
+
+        this.index = 9;
 
     }
 

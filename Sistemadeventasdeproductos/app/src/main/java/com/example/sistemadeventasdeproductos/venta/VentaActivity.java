@@ -30,9 +30,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import android.widget.Button;
 import android.widget.Toast;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import com.example.sistemadeventasdeproductos.api.models.Cliente;
+import android.net.Uri;
+import androidx.core.content.FileProvider;
 
 
-public class VentaActivity extends AppCompatActivity implements AdapterVenta.ItemClickListener{
+
+public class VentaActivity extends AppCompatActivity {
 
     private RecyclerView rvVenta;
     private AdapterVenta adapterVenta;
@@ -45,6 +52,12 @@ public class VentaActivity extends AppCompatActivity implements AdapterVenta.Ite
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venta);
+
+        // Verificar y solicitar permisos si es necesario
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
 
         rvVenta = findViewById(R.id.rvListadoVentas);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -66,21 +79,59 @@ public class VentaActivity extends AppCompatActivity implements AdapterVenta.Ite
         btnGenerarPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener la venta seleccionada (debes adaptar esto según tu lógica)
-                Venta ventaSeleccionada = adapterVenta.getVentaSeleccionada();
-                if (ventaSeleccionada != null) {
-                    generarFacturaPdf(ventaSeleccionada);
+                // Obtener todas las ventas (puedes ajustar esto según tus necesidades)
+                List<Venta> todasLasVentas = adapterVenta.getListaVentas();
+                if (!todasLasVentas.isEmpty()) {
+                    generarFacturaPdf(todasLasVentas);
                 } else {
-                    Toast.makeText(VentaActivity.this, "Seleccione una venta para generar la factura", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VentaActivity.this, "No hay ventas para generar la factura", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
-    @Override
-    public void onItemClick(Venta venta) {
-        adapterVenta.setVentaSeleccionada(venta);
+    // Método para enviar correo electrónico con archivo adjunto
+    private void enviarCorreoConAdjunto(List<Venta> listaVentas) {
+        // Iterar sobre todas las ventas
+        for (Venta venta : listaVentas) {
+            // Acceder a la información del cliente asociado a la venta
+            Cliente cliente = venta.getCliente();
+
+            // Verificar si el cliente tiene una dirección de correo electrónico
+            if (cliente != null && cliente.getEmail() != null && !cliente.getEmail().isEmpty()) {
+                String emailCliente = cliente.getEmail();
+
+                // Crear el intent para enviar correo electrónico
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailCliente});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asunto del Correo");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Cuerpo del Correo");
+
+                // Adjuntar el archivo PDF
+                Uri fileUri = obtenerUriArchivo(venta);
+                emailIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Enviar correo..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(this, "No hay clientes de correo instalados.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "El cliente no tiene una dirección de correo válida.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // Obtener Uri del archivo para versiones de Android 7.0 y superiores
+    private Uri obtenerUriArchivo(Venta venta) {
+        String filePath = Environment.getExternalStorageDirectory().getPath() + "/Factura_" + venta.getId() + ".pdf";
+        File file = new File(filePath);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return FileProvider.getUriForFile(this, "com.example.sistemadeventasdeproductos.fileprovider", file);
+        } else {
+            return Uri.fromFile(file);
+        }
     }
 
     public void cargarVentas(String filtro) {
@@ -117,49 +168,61 @@ public class VentaActivity extends AppCompatActivity implements AdapterVenta.Ite
 
     }
 
-    // Función para generar la factura en PDF
-    public void generarFacturaPdf(Venta venta) {
+    public void generarFacturaPdf(List<Venta> listaVentas) {
         // Crear un nuevo documento PDF
         PdfDocument document = new PdfDocument();
 
-        // Crear una página
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-
-        // Dibujar contenido en la página
-        Canvas canvas = page.getCanvas();
-        Paint paint = new Paint();
-
-        // Título
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(20);
-        canvas.drawText("Factura", 100, 30, paint);
-
-        // Contenido
-        paint.setTextSize(14);
-        canvas.drawText("Fecha: " + obtenerFechaActual(), 20, 60, paint);
-        // Agregar más información de la factura según tus necesidades...
-
-        // Finalizar la página
-        document.finishPage(page);
-
-        // Guardar el documento en un archivo PDF
         try {
-            String filePath = Environment.getExternalStorageDirectory().getPath() + "/Factura_" + venta.getId() + ".pdf";
+            // Obtener el directorio de archivos específicos de la aplicación
+            File directory = new File(getExternalFilesDir(null), "VentasPDF");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Iterar sobre todas las ventas
+            for (Venta venta : listaVentas) {
+                // Crear una página
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, document.getPages().size() + 1).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+
+                // Dibujar contenido en la página
+                Canvas canvas = page.getCanvas();
+                Paint paint = new Paint();
+
+                // Título
+                paint.setColor(Color.BLACK);
+                paint.setTextSize(20);
+                canvas.drawText("Factura", 100, 30, paint);
+
+                // Contenido
+                paint.setTextSize(14);
+                canvas.drawText("Fecha: " + obtenerFechaActual(), 20, 60, paint);
+                // Agregar más información de la factura según tus necesidades...
+
+                // Finalizar la página
+                document.finishPage(page);
+            }
+
+            // Guardar el documento en un archivo PDF
+            String filePath = directory.getPath() + "/RegistroVentas.pdf";
             File file = new File(filePath);
             document.writeTo(new FileOutputStream(file));
             document.close();
 
-            Log.d("GenerarFactura", "Factura generada y guardada en: " + filePath);
+            Log.d("GenerarFactura", "Registro de ventas generado y guardado en: " + filePath);
+
+            // Llamada al método para enviar el correo con el adjunto
+            enviarCorreoConAdjunto(listaVentas);
 
             // Muestra un mensaje al usuario
-            Toast.makeText(this, "Factura generada y guardada en: " + filePath, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registro de ventas generado y guardado en: " + filePath, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             // Muestra un mensaje de error al usuario
-            Toast.makeText(this, "Error al generar la factura", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error al generar el registro de ventas: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private String obtenerFechaActual() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
