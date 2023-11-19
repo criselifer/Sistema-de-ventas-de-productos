@@ -1,5 +1,6 @@
 package com.example.sistemadeventasdeproductos.api.services;
 
+import com.example.sistemadeventasdeproductos.api.models.DetalleVenta;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,24 @@ public class VentaService {
         this.ventas.add(venta);
         this.index++;
     }
+
+    public void agregarDetalleAVenta(int idVenta, DetalleVenta detalleVenta) {
+        Venta venta = obtenerVentaById(idVenta);
+        if (venta != null) {
+            //detalleVenta.setId(this.indexDetalles++);
+            //venta.agregarDetalle(detalleVenta);
+        }
+    }
+
+    private Venta obtenerVentaById(int id) {
+        for (Venta venta : ventas) {
+            if (venta.getId() == id) {
+                return venta;
+            }
+        }
+        return null;
+    }
+
     public List<Venta> obtenerVentas() {
         return this.ventas;
     }

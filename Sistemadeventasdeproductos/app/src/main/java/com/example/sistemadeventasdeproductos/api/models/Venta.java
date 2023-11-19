@@ -1,6 +1,8 @@
 package com.example.sistemadeventasdeproductos.api.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Venta {
 
@@ -9,8 +11,10 @@ public class Venta {
     private Integer nroFactura;
     private Date fecha;
     private Integer total;
+    private List<DetalleVenta> detalles;
 
     public Venta() {
+        this.detalles = new ArrayList<>();
     }
 
     public Integer getId() {
