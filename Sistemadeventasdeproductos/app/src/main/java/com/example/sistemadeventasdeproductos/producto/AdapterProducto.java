@@ -30,10 +30,11 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.tvId.setText(dsProducto.get(i).getId().toString());
-        viewHolder.tvCodigo.setText(dsProducto.get(i).getCodigo());
-        viewHolder.tvNombre.setText(dsProducto.get(i).getNombre());
-        viewHolder.tvCategoria.setText(dsProducto.get(i).getCategoria().toString());
-        viewHolder.tvPrecio.setText(dsProducto.get(i).getPrecioVenta().toString());
+        viewHolder.tvCodigo.setText("Código: "+dsProducto.get(i).getCodigo());
+        viewHolder.tvNombre.setText("Producto: "+dsProducto.get(i).getNombre());
+        viewHolder.tvCategoria.setText("Categoría: "+dsProducto.get(i).getCategoria().toString());
+        viewHolder.tvPrecio.setText("Precio de Venta: "+ dsProducto.get(i).getPrecioVenta().toString());
+        viewHolder.tvExistencia.setText("Existencia: "+dsProducto.get(i).getExistencia().toString());
 
         // Se establece la accion que se realizara al hacer clic en un item
         viewHolder.itemView.setOnClickListener(view -> {
@@ -56,6 +57,8 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
         public TextView tvNombre;
         public TextView tvCategoria;
         public TextView tvPrecio;
+        public TextView tvExistencia;
+
         public ViewHolder (View v) {
             super(v);
             tvId = v.findViewById(R.id.txtId);
@@ -63,6 +66,7 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
             tvNombre = v.findViewById(R.id.txtNombre);
             tvCategoria = v.findViewById(R.id.txtCategoria);
             tvPrecio = v.findViewById(R.id.txtPrecio);
+            tvExistencia = v.findViewById(R.id.txtExistencia);
         }
     }
 

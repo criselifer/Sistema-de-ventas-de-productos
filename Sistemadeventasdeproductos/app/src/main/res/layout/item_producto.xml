@@ -55,6 +55,15 @@
             android:maxLines="1"
             android:ellipsize="end"/>
 
+        <TextView
+            android:id="@+id/txtExistencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtPrecio"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
         <!--Hay que tener en cuenta que al eliminar el producto tambien se deben eliminar de los detalles de las ventas
             De momento se queda sin que se puedan eliminar-->
         <!--<Button
