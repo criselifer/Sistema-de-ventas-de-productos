@@ -8,6 +8,18 @@
     android:gravity="center"
     tools:context=".venta.FiltroVentaActivity">
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center">
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/baseline_store_24"/>
+  </LinearLayout>
+
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
