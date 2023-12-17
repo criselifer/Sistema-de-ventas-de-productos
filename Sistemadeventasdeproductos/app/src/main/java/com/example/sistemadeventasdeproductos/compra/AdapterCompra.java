@@ -10,17 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Compra;
-import com.example.sistemadeventasdeproductos.api.models.Venta;
-import com.example.sistemadeventasdeproductos.venta.AdapterVenta;
+import com.example.sistemadeventasdeproductos.venta.AdapterVentas;
 
 import java.util.List;
 
-public class AdapterCompra {
+public class AdapterCompra extends RecyclerView.Adapter<AdapterCompra.ViewHolder> {
 
     private List<Compra> dsCompra;
     private AdapterCompra.ItemClickListener mItemListener;
 
-    public List<Venta> getListaCompras() {
+    public List<Compra> getListaCompras() {
         return dsCompra;
     }
 
@@ -34,19 +33,19 @@ public class AdapterCompra {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterVenta.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        viewHolder.tvId.setText(dsVenta.get(i).getId().toString());
-        viewHolder.tvCliente.setText(dsVenta.get(i).getCliente().toString());
-        viewHolder.tvNroFactura.setText(dsVenta.get(i).getNroFactura().toString());
-        viewHolder.tvFecha.setText(dsVenta.get(i).getFecha().toString());
-        viewHolder.tvTotal.setText(dsVenta.get(i).getTotal().toString());
+        viewHolder.tvId.setText(dsCompra.get(i).getId().toString());
+        viewHolder.tvProveedor.setText(dsCompra.get(i).getProveedor().toString());
+        viewHolder.tvNroFactura.setText(dsCompra.get(i).getNroFactura().toString());
+        viewHolder.tvFecha.setText(dsCompra.get(i).getFecha().toString());
+        viewHolder.tvTotal.setText(dsCompra.get(i).getTotal().toString());
 
         // Se establece la accion que se realizara al hacer clic en un item
         viewHolder.itemView.setOnClickListener(view -> {
             // Verifica si hay un ItemClickListener y si sí, realiza la acción
             if (mItemListener != null) {
-                mItemListener.onItemClick(dsVenta.get(i));
+                mItemListener.onItemClick(dsCompra.get(i));
             }
         });
 
@@ -54,34 +53,34 @@ public class AdapterCompra {
 
     @Override
     public int getItemCount() {
-        return dsVenta.size();
+        return dsCompra.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvId;
-        public TextView tvCliente;
+        public TextView tvProveedor;
         public TextView tvNroFactura;
         public TextView tvFecha;
         public TextView tvTotal;
         public ViewHolder (View v) {
             super(v);
             tvId = v.findViewById(R.id.txtId);
-            tvCliente = v.findViewById(R.id.txtCliente);
+            tvProveedor = v.findViewById(R.id.txtCliente);
             tvNroFactura = v.findViewById(R.id.txtNroFactura);
             tvFecha = v.findViewById(R.id.txtFecha);
             tvTotal = v.findViewById(R.id.txtTotal);
         }
     }
 
-    public AdapterVenta(List<Venta> listaVentas) {
-        this.dsVenta = listaVentas;
+    public AdapterCompra(List<Compra> listaCompras) {
+        this.dsCompra = listaCompras;
     }
 
     public interface ItemClickListener{
-        void onItemClick(Venta venta);
+        void onItemClick(Compra compra);
     }
 
-    public void setItemClickListener(AdapterVenta.ItemClickListener listener) {
+    public void setItemClickListener(com.example.sistemadeventasdeproductos.compra.AdapterCompra.ItemClickListener listener) {
         this.mItemListener = listener;
     }
 }

@@ -26,7 +26,7 @@ public class CompraService {
         }
         return instanciaUnica;
     }
-    public void agregarVenta(Compra compra) {
+    public void agregarCompra(Compra compra) {
         compra.setId(this.index);
         this.compras.add(compra);
         this.index++;

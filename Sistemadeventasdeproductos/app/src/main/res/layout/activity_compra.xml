@@ -7,7 +7,7 @@
     tools:context=".compra.CompraActivity">
 
 
-    <!-- RecyclerView para mostrar las ventas -->
+    <!-- RecyclerView para mostrar las compras -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/rvListadoVentas"/>
+            android:id="@+id/rvListadoCompras"/>
 
     </LinearLayout>
 

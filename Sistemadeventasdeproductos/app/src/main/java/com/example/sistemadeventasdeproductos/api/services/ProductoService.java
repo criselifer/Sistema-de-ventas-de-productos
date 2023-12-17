@@ -35,6 +35,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(1);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(5000);
+        producto.setExistencia(0);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -44,6 +45,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(1);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(4500);
+        producto.setExistencia(2);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -53,6 +55,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(2);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(16000);
+        producto.setExistencia(1);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -62,6 +65,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(2);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(17000);
+        producto.setExistencia(5);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -71,6 +75,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(2);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(19000);
+        producto.setExistencia(0);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -80,6 +85,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(2);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(19000);
+        producto.setExistencia(10);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -89,6 +95,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(3);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(2500);
+        producto.setExistencia(2);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -98,6 +105,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(3);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(3500);
+        producto.setExistencia(0);
         this.productos.add(producto);
 
         producto = new Producto();
@@ -107,6 +115,7 @@ public class ProductoService {
         categoria = categoriaService.categoriaById(3);
         producto.setCategoria(categoria);
         producto.setPrecioVenta(4000);
+        producto.setExistencia(10);
         this.productos.add(producto);
 
         this.index = 11;

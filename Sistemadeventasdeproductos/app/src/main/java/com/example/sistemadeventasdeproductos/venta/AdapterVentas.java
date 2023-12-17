@@ -7,16 +7,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
-import com.example.sistemadeventasdeproductos.api.models.Producto;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
-import com.example.sistemadeventasdeproductos.producto.AdapterProducto;
 
 import java.util.List;
 //*****
-import android.graphics.Color;
 
 
-public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> {
+public class AdapterVentas extends RecyclerView.Adapter<AdapterVentas.ViewHolder> {
     private List<Venta> dsVenta;
     private ItemClickListener mItemListener;
 
@@ -73,7 +70,7 @@ public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> 
         }
     }
 
-    public AdapterVenta(List<Venta> listaVentas) {
+    public AdapterVentas(List<Venta> listaVentas) {
         this.dsVenta = listaVentas;
     }
 
@@ -81,7 +78,7 @@ public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> 
         void onItemClick(Venta venta);
     }
 
-    public void setItemClickListener(AdapterVenta.ItemClickListener listener) {
+    public void setItemClickListener(AdapterVentas.ItemClickListener listener) {
         this.mItemListener = listener;
     }
 

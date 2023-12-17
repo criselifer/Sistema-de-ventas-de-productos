@@ -42,7 +42,7 @@ import androidx.core.content.FileProvider;
 public class VentaActivity extends AppCompatActivity {
 
     private RecyclerView rvVenta;
-    private AdapterVenta adapterVenta;
+    private AdapterVentas adapterVentas;
     private FloatingActionButton fabNuevaVenta;
 
     private Button btnGenerarPDF;
@@ -80,7 +80,7 @@ public class VentaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Obtener todas las ventas (puedes ajustar esto según tus necesidades)
-                List<Venta> todasLasVentas = adapterVenta.getListaVentas();
+                List<Venta> todasLasVentas = adapterVentas.getListaVentas();
                 if (!todasLasVentas.isEmpty()) {
                     generarFacturaPdf(todasLasVentas);
                 } else {
@@ -146,8 +146,8 @@ public class VentaActivity extends AppCompatActivity {
             listaVentas = ventaService.ventasByCliente(Integer.parseInt(filtroSplit[1]));
         }
 
-        adapterVenta = new AdapterVenta(listaVentas);
-        rvVenta.setAdapter(adapterVenta);
+        adapterVentas = new AdapterVentas(listaVentas);
+        rvVenta.setAdapter(adapterVentas);
 
     }
 

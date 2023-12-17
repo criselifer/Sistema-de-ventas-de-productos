@@ -1,42 +1,24 @@
 package com.example.sistemadeventasdeproductos.compra;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sistemadeventasdeproductos.R;
-import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import com.example.sistemadeventasdeproductos.api.models.Compra;
-import com.example.sistemadeventasdeproductos.api.models.Venta;
 import com.example.sistemadeventasdeproductos.api.services.CompraService;
-import com.example.sistemadeventasdeproductos.api.services.VentaService;
-import com.example.sistemadeventasdeproductos.venta.AdapterVenta;
-import com.example.sistemadeventasdeproductos.venta.NewVentaActivity;
-import com.example.sistemadeventasdeproductos.venta.VentaActivity;
+import com.example.sistemadeventasdeproductos.venta.AdapterVentas;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +45,7 @@ public class CompraActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
-        rvCompra = findViewById(R.id.rvListadoVentas);
+        rvCompra = findViewById(R.id.rvListadoCompras);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvCompra.setLayoutManager(layoutManager);
         String filtro = Objects.requireNonNull(getIntent().getExtras()).getString("consulta");
