@@ -63,7 +63,7 @@ public class CompraService {
         }
     }
 
-    public List<Compra> comprasByCliente(Integer idProveedor) {
+    public List<Compra> comprasByProveedor(Integer idProveedor) {
         return compras.stream()
                 .filter(compra -> compra.getProveedor().getId() == idProveedor)
                 .collect(Collectors.toList());

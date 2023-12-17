@@ -17,6 +17,9 @@
         android:theme="@style/Theme.SistemaDeVentasdeProductos"
         tools:targetApi="31">
         <activity
+            android:name=".compra.FiltroCompraActivity"
+            android:exported="false" />
+        <activity
             android:name=".compra.CompraActivity"
             android:exported="false" />
         <activity

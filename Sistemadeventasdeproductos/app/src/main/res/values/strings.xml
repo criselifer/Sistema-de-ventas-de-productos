@@ -26,4 +26,6 @@
     <string name="productoRegistradoCorrectamente">Producto registrado correctamente</string>
     <string name="codigo_producto">Codigo del producto</string>
     <string name="cantidad">Cantidad</string>
+    <string name="proveedor" />
+    <string name="compra">Compra</string>
 </resources>

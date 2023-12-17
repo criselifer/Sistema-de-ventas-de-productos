@@ -29,4 +29,11 @@
         android:layout_height="wrap_content"
         android:text="@string/venta"/>
 
+    <Button
+        android:layout_width="200dp"
+        android:onClick="btnEventoCompra"
+        android:layout_height="wrap_content"
+        android:text="@string/compra"/>
+
+
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.example.sistemadeventasdeproductos.categoria.FiltroCategoriaActivity;
 import com.example.sistemadeventasdeproductos.cliente.FiltroClienteActivity;
+import com.example.sistemadeventasdeproductos.compra.FiltroCompraActivity;
 import com.example.sistemadeventasdeproductos.producto.FiltroProductoActivity;
 import com.example.sistemadeventasdeproductos.venta.FiltroVentaActivity;
 
@@ -46,4 +47,8 @@ public class SelectActivity extends AppCompatActivity {
         startActivity(principalIntent);
     }
 
+    public void btnEventoCompra(View view) {
+        Intent principalIntent = new Intent(this, FiltroCompraActivity.class);
+        startActivity(principalIntent);
+    }
 }
