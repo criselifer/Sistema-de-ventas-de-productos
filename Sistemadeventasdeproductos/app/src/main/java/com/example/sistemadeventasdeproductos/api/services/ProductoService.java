@@ -177,4 +177,24 @@ public class ProductoService {
 
     }
 
+    public void actualizarStock(Integer idProducto, Integer cantidad) {
+        for (int i = 0; i < productos.size(); i++) {
+            Producto producto = productos.get(i);
+            if (producto.getId() == idProducto) {
+                producto.setExistencia(producto.getExistencia() - cantidad);
+                return;
+            }
+        }
+    }
+
+    public Producto obtenerProducto(Integer idProducto) {
+        for (int i = 0; i < productos.size(); i++) {
+            Producto producto = productos.get(i);
+            if (producto.getId() == idProducto) {
+                return producto;
+            }
+        }
+        return null;
+    }
+
 }

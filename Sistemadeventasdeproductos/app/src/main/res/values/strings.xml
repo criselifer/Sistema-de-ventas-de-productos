@@ -29,4 +29,6 @@
     <string name="cantidad">Cantidad</string>
     <string name="proveedor" />
     <string name="compra">Compra</string>
+    <string name="noHaySuficienteStock">No hay suficiente stock</string>
+    <string name="seleccioneProducto">Seleccione un producto</string>
 </resources>

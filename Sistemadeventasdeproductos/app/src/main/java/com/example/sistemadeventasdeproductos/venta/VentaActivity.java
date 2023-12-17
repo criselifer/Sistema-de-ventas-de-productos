@@ -15,8 +15,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-// Importaciones para la generación de PDF
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -36,8 +34,6 @@ import android.os.Build;
 import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import android.net.Uri;
 import androidx.core.content.FileProvider;
-
-
 
 public class VentaActivity extends AppCompatActivity {
 

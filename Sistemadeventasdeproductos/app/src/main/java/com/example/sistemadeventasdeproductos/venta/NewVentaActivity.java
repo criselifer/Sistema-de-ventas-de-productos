@@ -2,7 +2,6 @@ package com.example.sistemadeventasdeproductos.venta;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,8 +10,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.Debug;
-
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Cliente;
 import com.example.sistemadeventasdeproductos.api.models.DetalleVenta;
@@ -32,7 +29,6 @@ public class NewVentaActivity extends AppCompatActivity {
     private Spinner spinnerProducto;
     private Producto productoSeleccionado;
     private EditText nroFactura;
-    //private EditText fecha;
     private TextView total;
     private EditText cantidad;
 
@@ -42,7 +38,32 @@ public class NewVentaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_venta);
 
+        nroFactura = findViewById(R.id.txtNroFactura);
+        total = findViewById(R.id.txtTotal);
         cantidad = findViewById(R.id.txtCantidadProducto);
+        cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    ProductoService productoService = ProductoService.getInstance();
+                    if (productoSeleccionado != null) {
+                        Producto producto = productoService.obtenerProducto(productoSeleccionado.getId());
+                        if (producto.getExistencia() < Integer.parseInt(cantidad.getText().toString())) {
+                            Toast.makeText(
+                                    NewVentaActivity.this,R.string.noHaySuficienteStock,Toast.LENGTH_LONG).show();
+                            cantidad.setText("");
+                            total.setText("");
+                        }else {
+                            total.setText(String.valueOf(producto.getPrecioVenta()*Integer.parseInt(cantidad.getText().toString())));
+                        }
+                    }else {
+                        Toast.makeText(
+                                NewVentaActivity.this,R.string.seleccioneProducto,Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+        });
 
         ClienteService clienteService = ClienteService.getInstance();
         List<Cliente> listaClientes;
@@ -87,17 +108,15 @@ public class NewVentaActivity extends AppCompatActivity {
             }
         });
 
-        nroFactura = findViewById(R.id.txtNroFactura);
-        //fecha = findViewById(R.id.txtFecha);
-        total = findViewById(R.id.txtTotal);
-
     }
 
     public void agregarNuevaVenta(View v) {
 
-        Venta venta = new Venta();
         VentaService ventaService = VentaService.getInstance();
+        ProductoService productoService = ProductoService.getInstance();
+        DetalleVentaService detalleVentaService = DetalleVentaService.getInstance();
 
+        Venta venta = new Venta();
         venta.setCliente(clienteSeleccionado);
         venta.setNroFactura(Integer.parseInt(nroFactura.getText().toString()));
         venta.setFecha(new Date());
@@ -110,27 +129,32 @@ public class NewVentaActivity extends AppCompatActivity {
         int cantidadD = Integer.parseInt(cantidad.getText().toString());
 
         DetalleVenta detalleVenta = new DetalleVenta();
-        DetalleVentaService detalleVentaService = DetalleVentaService.getInstance();
+        if (productoSeleccionado.getExistencia() < cantidadD) {
+            Toast.makeText(
+                    NewVentaActivity.this,R.string.noHaySuficienteStock,Toast.LENGTH_LONG).show();
+            return;
+        }else {
+            detalleVenta.setCantidad(cantidadD);
+            detalleVenta.setIdProducto(productoSeleccionado.getId());
+            detalleVenta.setSubtotal(productoSeleccionado.getPrecioVenta()*cantidadD);
+            detalleVentaService.agregarReservaDetalleVenta(detalleVenta);
+            venta.setTotal(productoSeleccionado.getPrecioVenta()*cantidadD);
+            venta.agregarDetalle(detalleVenta);
+            ventaService.agregarVenta(venta);
 
-        detalleVenta.setCantidad(cantidadD);
-        detalleVenta.setIdProducto(productoSeleccionado.getId());
-        detalleVenta.setSubtotal(productoSeleccionado.getPrecioVenta()*cantidadD);
-        detalleVentaService.agregarReservaDetalleVenta(detalleVenta);
+            productoService.actualizarStock(productoSeleccionado.getId(), cantidadD);
 
-        venta.setTotal(productoSeleccionado.getPrecioVenta()*cantidadD);
-        venta.agregarDetalle(detalleVenta);
-        ventaService.agregarVenta(venta);
+            Toast.makeText(
+                    NewVentaActivity.this,R.string.ventaAgregadoCorrectamente,Toast.LENGTH_LONG).show();
 
+            Intent newVentaIntent = new Intent(this, VentaActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("consulta","");
+            newVentaIntent.putExtras(bundle);
+            startActivity(newVentaIntent);
+            finish();
+        }
 
-        Toast.makeText(
-                NewVentaActivity.this,R.string.ventaAgregadoCorrectamente,Toast.LENGTH_LONG).show();
-
-        Intent newVentaIntent = new Intent(this, VentaActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("consulta","");
-        newVentaIntent.putExtras(bundle);
-        startActivity(newVentaIntent);
-        finish();
     }
 
 }
