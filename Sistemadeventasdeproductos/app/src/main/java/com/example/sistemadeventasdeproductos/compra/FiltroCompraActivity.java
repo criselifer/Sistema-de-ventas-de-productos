@@ -54,7 +54,7 @@ public class FiltroCompraActivity extends AppCompatActivity {
 
     }
 
-    public void btnEventoFiltrarVenta(View v) {
+    public void btnEventoFiltrarCompra(View v) {
 
         Intent principalIntent = new Intent(this, CompraActivity.class);
         Bundle bundle = new Bundle();

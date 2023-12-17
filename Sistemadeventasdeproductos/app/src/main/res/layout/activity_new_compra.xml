@@ -26,7 +26,7 @@
         android:id="@+id/spinnerProveedor"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:prompt="Proveedor"
+        android:prompt="@string/proveedor"
         android:layout_marginBottom="16dp"/>
 
 
