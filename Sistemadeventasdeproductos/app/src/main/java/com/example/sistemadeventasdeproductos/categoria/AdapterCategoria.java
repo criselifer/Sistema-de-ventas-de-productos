@@ -25,11 +25,18 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
         viewHolder.tvId.setText(dsCategoria.get(i).getId().toString());
         viewHolder.tvNombre.setText(dsCategoria.get(i).getNombre());
+
+        // Se establece la accion que se realizara al hacer clic en un item
         viewHolder.itemView.setOnClickListener(view -> {
-            mItemListener.onItemClick(dsCategoria.get(i));
+            // Verifica si hay un ItemClickListener y si sí, realiza la acción
+            if (mItemListener != null) {
+                mItemListener.onItemClick(dsCategoria.get(i));
+            }
         });
+
     }
 
     @Override
@@ -53,6 +60,10 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.View
 
     public interface ItemClickListener{
         void onItemClick(Categoria categoria);
+    }
+
+    public void setItemClickListener(ItemClickListener listener) {
+        this.mItemListener = listener;
     }
 
 }

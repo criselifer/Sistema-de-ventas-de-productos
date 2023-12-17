@@ -6,8 +6,10 @@ public class Producto {
     private String nombre;
     private Categoria categoria;
     private Integer precioVenta;
+    private Integer existencia;
 
     public Producto() {
+        this.existencia = 0;
     }
 
     public Integer getId() {
@@ -50,8 +52,17 @@ public class Producto {
         this.precioVenta = precioVenta;
     }
 
+    public Integer getExistencia() {
+        return this.existencia;
+    }
+
+    public void setExistencia(Integer existencia) {
+        this.existencia = existencia;
+    }
+
     @Override
     public String toString() {
         return nombre;
     }
+
 }

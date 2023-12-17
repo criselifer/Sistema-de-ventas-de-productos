@@ -7,7 +7,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
+import com.example.sistemadeventasdeproductos.api.models.Categoria;
 import com.example.sistemadeventasdeproductos.api.models.Producto;
+import com.example.sistemadeventasdeproductos.categoria.AdapterCategoria;
+
 import java.util.List;
 
 public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHolder> {
@@ -32,8 +35,12 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
         viewHolder.tvCategoria.setText(dsProducto.get(i).getCategoria().toString());
         viewHolder.tvPrecio.setText(dsProducto.get(i).getPrecioVenta().toString());
 
+        // Se establece la accion que se realizara al hacer clic en un item
         viewHolder.itemView.setOnClickListener(view -> {
-            mItemListener.onItemClick(dsProducto.get(i));
+            // Verifica si hay un ItemClickListener y si sí, realiza la acción
+            if (mItemListener != null) {
+                mItemListener.onItemClick(dsProducto.get(i));
+            }
         });
 
     }
@@ -65,6 +72,10 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
 
     public interface ItemClickListener{
         void onItemClick(Producto producto);
+    }
+
+    public void setItemClickListener(AdapterProducto.ItemClickListener listener) {
+        this.mItemListener = listener;
     }
 
 }

@@ -7,7 +7,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
+import com.example.sistemadeventasdeproductos.api.models.Producto;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
+import com.example.sistemadeventasdeproductos.producto.AdapterProducto;
+
 import java.util.List;
 //*****
 import android.graphics.Color;
@@ -39,8 +42,12 @@ public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> 
         viewHolder.tvFecha.setText(dsVenta.get(i).getFecha().toString());
         viewHolder.tvTotal.setText(dsVenta.get(i).getTotal().toString());
 
+        // Se establece la accion que se realizara al hacer clic en un item
         viewHolder.itemView.setOnClickListener(view -> {
-            mItemListener.onItemClick(dsVenta.get(i));
+            // Verifica si hay un ItemClickListener y si sí, realiza la acción
+            if (mItemListener != null) {
+                mItemListener.onItemClick(dsVenta.get(i));
+            }
         });
 
     }
@@ -72,6 +79,10 @@ public class AdapterVenta extends RecyclerView.Adapter<AdapterVenta.ViewHolder> 
 
     public interface ItemClickListener{
         void onItemClick(Venta venta);
+    }
+
+    public void setItemClickListener(AdapterVenta.ItemClickListener listener) {
+        this.mItemListener = listener;
     }
 
 }
