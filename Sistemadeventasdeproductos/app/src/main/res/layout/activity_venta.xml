@@ -7,17 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".SelectActivity">
 
-    <!-- RecyclerView para mostrar las ventas -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvListadoVentas"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/rvListadoVentas"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btnGenerarPDF"
@@ -26,8 +25,7 @@
             android:text="Generar PDF"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
-
+            android:layout_marginBottom="16dp" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

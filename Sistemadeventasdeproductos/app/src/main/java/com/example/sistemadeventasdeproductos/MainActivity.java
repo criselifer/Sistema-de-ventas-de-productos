@@ -9,12 +9,9 @@ import android.widget.Toast;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
-
     EditText usuario;
     EditText password;
-
     boolean error=true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnEventoIngresar(View v) {
 
-        if(error) {
-            Toast.makeText(
-                    MainActivity.this,R.string.app_name,Toast.LENGTH_LONG).show();
-        }
-
         if (usuario.getText().toString().equalsIgnoreCase("admin")
                 && password.getText().toString().equalsIgnoreCase("123")) {
+
+            String mensajeBienvenida = getResources().getString(R.string.bienvenido) + " " + usuario.getText().toString();
+            Toast.makeText(
+                    MainActivity.this,mensajeBienvenida,Toast.LENGTH_LONG).show();
+                    
             Intent principalIntent=new Intent(this, SelectActivity.class);
             Bundle bundle=new Bundle();
             bundle.putString("usuario",usuario.getText().toString());

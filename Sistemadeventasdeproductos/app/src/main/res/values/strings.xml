@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Sistema de ventasde productos</string>
+    <string name="app_name">Sistema de ventas de productos</string>
+    <string name="bienvenido">Bienvenido</string>
     <string name="categoria">Categoria</string>
     <string name="producto">Producto</string>
     <string name="cliente">Cliente</string>
@@ -31,4 +32,6 @@
     <string name="compra">Compra</string>
     <string name="noHaySuficienteStock">No hay suficiente stock</string>
     <string name="seleccioneProducto">Seleccione un producto</string>
+    <string name="seleccionar_cliente">Seleccione un cliente</string>
+    <string name="seleccionar_producto">Seleccione el producto</string>
 </resources>

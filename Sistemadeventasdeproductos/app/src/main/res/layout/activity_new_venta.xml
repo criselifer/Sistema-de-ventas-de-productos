@@ -1,65 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".venta.NewVentaActivity">
 
-    <EditText
-        android:id="@+id/txtNroFactura"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/nroFactura"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/txtNroFactura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/nroFactura"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cliente"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="16dp"/>
 
     <Spinner
         android:id="@+id/spinnerCliente"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:prompt="@string/cliente"
-        android:layout_marginBottom="16dp"/>
+        android:hint="@string/seleccionar_cliente"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/producto"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="16dp"/>
+
     <Spinner
         android:id="@+id/spinnerProducto"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:prompt="@string/producto"
-        android:layout_marginBottom="16dp"/>
-
-    <EditText
-        android:id="@+id/txtCantidadProducto"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/cantidad"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:autofillHints="" />
+        android:prompt="@string/producto"
+        android:hint="@string/seleccionar_producto"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/txtCantidadProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/cantidad"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/txtTotal"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="none"
-        android:hint="@string/total"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/total"/>
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:onClick="agregarNuevaVenta"
         android:text="@string/agregar"/>
 

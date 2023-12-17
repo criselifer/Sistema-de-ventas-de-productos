@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 //*****
 
 
@@ -36,7 +40,19 @@ public class AdapterVentas extends RecyclerView.Adapter<AdapterVentas.ViewHolder
         viewHolder.tvId.setText(dsVenta.get(i).getId().toString());
         viewHolder.tvCliente.setText(dsVenta.get(i).getCliente().toString());
         viewHolder.tvNroFactura.setText(dsVenta.get(i).getNroFactura().toString());
-        viewHolder.tvFecha.setText(dsVenta.get(i).getFecha().toString());
+
+        try {
+            String fechaString = dsVenta.get(i).getFecha().toString();
+            SimpleDateFormat formatoEntrada = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+            Date fechaDate = formatoEntrada.parse(fechaString);
+            SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+            String fechaFormateada = formatoSalida.format(fechaDate);
+            viewHolder.tvFecha.setText(fechaFormateada);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            viewHolder.tvFecha.setText("Fecha no válida");
+        }
+
         viewHolder.tvTotal.setText(dsVenta.get(i).getTotal().toString());
 
         // Se establece la accion que se realizara al hacer clic en un item

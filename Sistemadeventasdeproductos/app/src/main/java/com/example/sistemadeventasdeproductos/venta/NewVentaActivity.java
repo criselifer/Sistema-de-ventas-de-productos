@@ -2,6 +2,8 @@ package com.example.sistemadeventasdeproductos.venta;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,26 +43,38 @@ public class NewVentaActivity extends AppCompatActivity {
         nroFactura = findViewById(R.id.txtNroFactura);
         total = findViewById(R.id.txtTotal);
         cantidad = findViewById(R.id.txtCantidadProducto);
-        cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        cantidad.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    ProductoService productoService = ProductoService.getInstance();
-                    if (productoSeleccionado != null) {
-                        Producto producto = productoService.obtenerProducto(productoSeleccionado.getId());
-                        if (producto.getExistencia() < Integer.parseInt(cantidad.getText().toString())) {
-                            Toast.makeText(
-                                    NewVentaActivity.this,R.string.noHaySuficienteStock,Toast.LENGTH_LONG).show();
-                            cantidad.setText("");
-                            total.setText("");
-                        }else {
-                            total.setText(String.valueOf(producto.getPrecioVenta()*Integer.parseInt(cantidad.getText().toString())));
-                        }
-                    }else {
-                        Toast.makeText(
-                                NewVentaActivity.this,R.string.seleccioneProducto,Toast.LENGTH_LONG).show();
-                    }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Este método se llama para notificar que algo está a punto de cambiar
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Este método se llama para notificar que el texto ha cambiado
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Este método se llama después de que el texto ha cambiado
+                ProductoService productoService = ProductoService.getInstance();
+                if (productoSeleccionado != null) {
+                    Producto producto = productoService.obtenerProducto(productoSeleccionado.getId());
+                    if (!editable.toString().isEmpty()) {
+                        int cantidadIngresada = Integer.parseInt(editable.toString());
+                        if (producto.getExistencia() < cantidadIngresada) {
+                            Toast.makeText(
+                                    NewVentaActivity.this, R.string.noHaySuficienteStock, Toast.LENGTH_LONG).show();
+                            total.setText("");
+                        } else {
+                            total.setText(String.valueOf("Total : " + String.valueOf(producto.getPrecioVenta() * cantidadIngresada)));
+                        }
+                    } else {
+                        total.setText("");
+                    }
+                } else {
+                    Toast.makeText(
+                            NewVentaActivity.this, R.string.seleccioneProducto, Toast.LENGTH_LONG).show();
                 }
             }
         });
