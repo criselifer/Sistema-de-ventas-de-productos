@@ -6,10 +6,16 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sistemadeventasdeproductos.R;
+import com.example.sistemadeventasdeproductos.api.models.DetalleVenta;
+import com.example.sistemadeventasdeproductos.api.models.Producto;
 import com.example.sistemadeventasdeproductos.api.models.Venta;
+import com.example.sistemadeventasdeproductos.api.services.DetalleVentaService;
+import com.example.sistemadeventasdeproductos.api.services.ProductoService;
 import com.example.sistemadeventasdeproductos.api.services.VentaService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
@@ -75,10 +81,13 @@ public class VentaActivity extends AppCompatActivity {
         btnGenerarPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener todas las ventas (puedes ajustar esto según tus necesidades)
-                List<Venta> todasLasVentas = adapterVentas.getListaVentas();
-                if (!todasLasVentas.isEmpty()) {
-                    generarFacturaPdf(todasLasVentas);
+
+                VentaService ventaService = VentaService.getInstance();
+                DetalleVentaService detalleVentaService = DetalleVentaService.getInstance();
+
+                List<Venta> ventas = ventaService.obtenerVentas();
+                if (!ventas.isEmpty()) {
+                    generarFacturaPdf(ventas);
                 } else {
                     Toast.makeText(VentaActivity.this, "No hay ventas para generar la factura", Toast.LENGTH_SHORT).show();
                 }
@@ -165,18 +174,20 @@ public class VentaActivity extends AppCompatActivity {
     }
 
     public void generarFacturaPdf(List<Venta> listaVentas) {
-        // Crear un nuevo documento PDF
+
         PdfDocument document = new PdfDocument();
+        DetalleVentaService detalleVentaService = DetalleVentaService.getInstance();
+        ProductoService productoService = ProductoService.getInstance();
 
         try {
-            // Obtener el directorio de archivos específicos de la aplicación
-            File directory = new File(getExternalFilesDir(null), "VentasPDF");
+
+            File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            // Iterar sobre todas las ventas
             for (Venta venta : listaVentas) {
+
                 // Crear una página
                 PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, document.getPages().size() + 1).create();
                 PdfDocument.Page page = document.startPage(pageInfo);
@@ -188,40 +199,51 @@ public class VentaActivity extends AppCompatActivity {
                 // Título
                 paint.setColor(Color.BLACK);
                 paint.setTextSize(20);
-                canvas.drawText("Factura", 100, 30, paint);
+                canvas.drawText("Factura: " + venta.getNroFactura(), 100, 30, paint);
 
                 // Contenido
                 paint.setTextSize(14);
                 canvas.drawText("Fecha: " + obtenerFechaActual(), 20, 60, paint);
-                // Agregar más información de la factura según tus necesidades...
+
+                // Cliente
+                canvas.drawText("Cliente: " + venta.getCliente().getNombre() + " " + venta.getCliente().getApellido(), 20, 90, paint);
+
+                // Productos
+                DetalleVenta detalleVenta = detalleVentaService.obtenerDetallesVentaById(venta.getId());
+                int y = 120;
+                Producto producto = productoService.obtenerProducto(venta.getId());
+                canvas.drawText(producto.getNombre(), 20, y, paint);
+                canvas.drawText("Precio Unitario: " + producto.getPrecioVenta(), 20, y + 60, paint);
+                canvas.drawText("Cantidad: " + detalleVenta.getCantidad(), 20, y + 30, paint);
+                canvas.drawText("Subtotal: " + detalleVenta.getSubtotal(), 20, y + 90, paint);
+
+                // Total
+                canvas.drawText("Total: " + venta.getTotal(), 20, y + 120, paint);
 
                 // Finalizar la página
                 document.finishPage(page);
             }
 
             // Guardar el documento en un archivo PDF
-            String filePath = directory.getPath() + "/RegistroVentas.pdf";
-            File file = new File(filePath);
-            document.writeTo(new FileOutputStream(file));
+            String fileName = "RegistroVentas.pdf";
+            File file = new File(directory, fileName);
+            FileOutputStream fos = new FileOutputStream(file);
+            document.writeTo(fos);
             document.close();
+            fos.close();
 
-            Log.d("GenerarFactura", "Registro de ventas generado y guardado en: " + filePath);
+            Log.d("GenerarFactura", "Registro de ventas generado y guardado en: " + file.getAbsolutePath());
+            Toast.makeText(this, "Registro de ventas generado y guardado en: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
-            // Llamada al método para enviar el correo con el adjunto
-            enviarCorreoConAdjunto(listaVentas);
-
-            // Muestra un mensaje al usuario
-            Toast.makeText(this, "Registro de ventas generado y guardado en: " + filePath, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Muestra un mensaje de error al usuario
             Toast.makeText(this, "Error al generar el registro de ventas: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
 
     private String obtenerFechaActual() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         return dateFormat.format(new Date());
     }
+
 }

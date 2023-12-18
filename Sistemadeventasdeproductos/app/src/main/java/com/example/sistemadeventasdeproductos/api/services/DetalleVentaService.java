@@ -38,4 +38,14 @@ public class DetalleVentaService {
         }
     }
 
+    public DetalleVenta obtenerDetallesVentaById(int id) {
+        for (int i = 0; i < detalleVentas.size(); i++) {
+            DetalleVenta detalleVenta = detalleVentas.get(i);
+            if (detalleVenta.getId() == id) {
+                return detalleVenta;
+            }
+        }
+        return null;
+    }
+
 }
