@@ -136,4 +136,20 @@ public class ClienteService {
         }
     }
 
+    public ArrayList<String> getNombres() {
+        ArrayList<String> nombres = new ArrayList<>();
+        for (Cliente cliente : clientes) {
+            nombres.add(cliente.getNombre());
+        }
+        return nombres;
+    }
+
+    public ArrayList<String> getApellidos() {
+        ArrayList<String> apellidos = new ArrayList<>();
+        for (Cliente cliente : clientes) {
+            apellidos.add(cliente.getApellido());
+        }
+        return apellidos;
+    }
+
 }

@@ -78,4 +78,12 @@ public class CategoriaService {
         }
     }
 
+    public ArrayList<String> getNombres(){
+        ArrayList<String> nombres = new ArrayList<>();
+        for (int i = 0; i < listaCategorias.size(); i++) {
+            nombres.add(listaCategorias.get(i).getNombre());
+        }
+        return nombres;
+    }
+
 }

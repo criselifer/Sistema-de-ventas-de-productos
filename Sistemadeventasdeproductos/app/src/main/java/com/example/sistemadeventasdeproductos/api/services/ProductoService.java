@@ -197,4 +197,20 @@ public class ProductoService {
         return null;
     }
 
+    public ArrayList<String> getNombres() {
+        ArrayList<String> nombres = new ArrayList<>();
+        for (Producto producto : productos) {
+            nombres.add(producto.getNombre());
+        }
+        return nombres;
+    }
+
+    public ArrayList<String> getCodigos() {
+        ArrayList<String> codigos = new ArrayList<>();
+        for (Producto producto : productos) {
+            codigos.add(producto.getCodigo());
+        }
+        return codigos;
+    }
+
 }

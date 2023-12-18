@@ -25,24 +25,26 @@
 
   <com.google.android.material.textfield.TextInputLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/txtNombre"
+      android:layout_height="78dp"
+      android:layout_marginBottom="8dp">
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextViewNombre"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/nombre"/>
+        android:layout_height="match_parent"
+        android:hint="@string/nombre"
+        android:paddingLeft="10dp"/>
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/txtApellido"
+      android:layout_height="78dp">
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextViewApellido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/apellido"/>
+        android:hint="@string/apellido"
+        android:paddingLeft="10dp"
+        android:paddingVertical="16dp"/>
   </com.google.android.material.textfield.TextInputLayout>
 
   <Button

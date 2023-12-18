@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -12,10 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sistemadeventasdeproductos.R;
 import com.example.sistemadeventasdeproductos.api.models.Categoria;
 import com.example.sistemadeventasdeproductos.api.services.CategoriaService;
+import com.example.sistemadeventasdeproductos.api.services.ProductoService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class FiltroProductoActivity extends AppCompatActivity {
-    EditText codigo;
+    AutoCompleteTextView codigo;
     Spinner spinnerCategoria;
     Categoria categoriaSeleccionada;
     CheckBox checkBoxCategoria;
@@ -24,7 +28,13 @@ public class FiltroProductoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtro_producto);
-        codigo =findViewById(R.id.txtCodigo);
+
+        ProductoService productoService = ProductoService.getInstance();
+        ArrayList<String> codigos = productoService.getCodigos();
+        codigo = findViewById(R.id.autoCompleteTextViewCodigo);
+        ArrayAdapter<String> adapterCodigos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, codigos);
+        codigo.setAdapter(adapterCodigos);
+
         categoriaSeleccionada = null;
 
         CategoriaService categoriaService = CategoriaService.getInstance();
